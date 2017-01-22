@@ -46,6 +46,7 @@ public class JInputJoystick implements StandardInput {
 	private Identifier[] keyMap;
 	private float[] keyValues;
 	private boolean[] keyClicked;
+	private boolean[] keyWasNotPressed;
 
 
 	/**
@@ -78,6 +79,7 @@ public class JInputJoystick implements StandardInput {
 		keyMap = new Identifier[Key.values().length];
 		keyValues = new float[Key.values().length];
 		keyClicked = new boolean[Key.values().length];
+		keyWasNotPressed = new boolean[Key.values().length];
 	}
 
 	/**
@@ -171,9 +173,16 @@ public class JInputJoystick implements StandardInput {
 		} catch (Exception e) {
 			return false;
 		}
-		if(!isControllerValid)
+		if(!isControllerValid){
 			return false;
-
+		}
+		
+		for(int i=0; i<keyMap.length; i++){
+			keyClicked[i] = keyWasNotPressed[i] && getCompState(i);
+			keyWasNotPressed[i] = !getCompState(i);
+			
+		}
+		/*
 		EventQueue queue = controller.getEventQueue();
 		Event event = new Event();
 		while(queue.getNextEvent(event)) {
@@ -181,9 +190,9 @@ public class JInputJoystick implements StandardInput {
 			for(int i=0; i<keyMap.length; i++){
 				keyClicked[i] = false;
 				if(keyMap[i] == id){
-					
+
 					float compVal = event.getValue();
-					
+
 					if(id == Identifier.Axis.POV){
 						float value = keyValues[i];
 						keyClicked[i] = compVal == value || compVal == value-0.125f || compVal == value+0.125f || compVal == value+0.125f-1f;
@@ -193,7 +202,8 @@ public class JInputJoystick implements StandardInput {
 					}
 				}
 			}
-         }
+		}
+		 */
 		return isControllerValid;
 	}
 
@@ -626,34 +636,72 @@ public class JInputJoystick implements StandardInput {
 		return yValueRightJoystickPercentage;
 	}
 
-	public void setKey(Key key, Identifier id){
-		keyMap[key.ordinal()] = id;
+	public void setKey(Key key){
+		clearEventQueue();
+		EventQueue queue;
+		Event event;
+		Identifier id = null;
+		float val;
+		while(true){
+			pollController();
+			queue = controller.getEventQueue();
+			event = new Event();
+			while(queue.getNextEvent(event)) {
+				id = event.getComponent().getIdentifier();
+				val = event.getValue();
+				if(id == Axis.POV){
+					if(val!=0){
+						setKey(key, val);
+						return;
+					}
+				}
+				else if(val == 1.0f){
+					setKey(key, id);
+					return;
+				}
+			}
+		}
 	}
 
+	public void setKey(Key key, Identifier id){
+		keyMap[key.ordinal()] = id;
+		System.out.println("Set "+id.getName()+" as "+key);
+	}
+
+	//TODO add possibility for axis as buttons
 	public void setKey(Key key, float value){
-		keyMap[key.ordinal()] = Axis.POV;
+		setKey(key, Axis.POV);
 		keyValues[key.ordinal()] = value;
 	}
 
 	@Override
 	public boolean isClicked(Key key) {
-		//TODO doch mit buffer array aus polling machen => isPressed, beim D-Pad wird ein Key bei Diagonal auch
-		boolean state = keyClicked[key.ordinal()];
-		keyClicked[key.ordinal()] = false;
-		return state;
+		return keyClicked[key.ordinal()];
 	}
 
 	@Override
 	public boolean isPressed(Key key) {
-		Identifier id = keyMap[key.ordinal()];
+		return getCompState(key.ordinal());
+	}
+	
+	private boolean getCompState(int keyId){
+		Identifier id = keyMap[keyId];
 		if(componentExists(id)){
 			float compVal = getComponentValue(id);
 			if(id == Identifier.Axis.POV){
-				float value = keyValues[key.ordinal()];
+				float value = keyValues[keyId];
 				return compVal == value || compVal == value-0.125f || compVal == value+0.125f || compVal == value+0.125f-1f;
 			}
 			return compVal != 0;
 		}
 		return false;
+	}
+
+	private void clearEventQueue(){
+		EventQueue queue;
+		Event event = new Event();
+		pollController();
+		queue = controller.getEventQueue();
+		while(queue.getNextEvent(event));
 	}
 }

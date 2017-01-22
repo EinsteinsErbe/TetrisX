@@ -51,8 +51,16 @@ public class Input implements StandardInput{
 		}
 		return state;
 	}
+	
+	public void setGamePadKey(Key key){
+		gamepad.setKey(key);
+	}
+	
+	public void setKeyboardKey(Key key){
+		keyboard.setKey(key);
+	}
 
-	private void setDefaultKeys(){
+	public void setDefaultKeys(){
 		gamepad.setKey(Key.UP, POV.UP);
 		gamepad.setKey(Key.DOWN, POV.DOWN);
 		gamepad.setKey(Key.LEFT, POV.LEFT);
