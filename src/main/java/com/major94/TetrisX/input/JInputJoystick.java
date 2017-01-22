@@ -636,7 +636,7 @@ public class JInputJoystick implements StandardInput {
 		return yValueRightJoystickPercentage;
 	}
 
-	public void setKey(Key key){
+	public void setInputKey(Key key){
 		clearEventQueue();
 		EventQueue queue;
 		Event event;
@@ -651,12 +651,12 @@ public class JInputJoystick implements StandardInput {
 				val = event.getValue();
 				if(id == Axis.POV){
 					if(val!=0){
-						setKey(key, val);
+						setKey(key, Axis.POV, val);
 						return;
 					}
 				}
-				else if(val == 1.0f){
-					setKey(key, id);
+				else if(val == 1.0f || val == -1.0f){
+					setKey(key, id, val);
 					return;
 				}
 			}
@@ -664,14 +664,14 @@ public class JInputJoystick implements StandardInput {
 	}
 
 	public void setKey(Key key, Identifier id){
-		keyMap[key.ordinal()] = id;
-		System.out.println("Set "+id.getName()+" as "+key);
+		setKey(key, id, 1.0f);
 	}
 
 	//TODO add possibility for axis as buttons
-	public void setKey(Key key, float value){
-		setKey(key, Axis.POV);
+	public void setKey(Key key, Identifier id, float value){
+		keyMap[key.ordinal()] = id;
 		keyValues[key.ordinal()] = value;
+		System.out.println("Set "+id.getName()+": "+value+" as "+key);
 	}
 
 	@Override
@@ -688,11 +688,11 @@ public class JInputJoystick implements StandardInput {
 		Identifier id = keyMap[keyId];
 		if(componentExists(id)){
 			float compVal = getComponentValue(id);
+			float value = keyValues[keyId];
 			if(id == Identifier.Axis.POV){
-				float value = keyValues[keyId];
 				return compVal == value || compVal == value-0.125f || compVal == value+0.125f || compVal == value+0.125f-1f;
 			}
-			return compVal != 0;
+			return compVal == value;
 		}
 		return false;
 	}

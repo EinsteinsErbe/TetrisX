@@ -58,6 +58,9 @@ public class Game implements Runnable {
 		display.getFrame().setFocusTraversalKeysEnabled(false);
 		display.getCanvas().addMouseListener(mm);
 		display.getCanvas().addMouseMotionListener(mm);
+		
+		//Test key setting
+		input.setGamePadKey(Key.UP);
 
 		Thread thread = new Thread(this);
 		thread.start();
