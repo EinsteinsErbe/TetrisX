@@ -58,8 +58,6 @@ public class Game implements Runnable {
 		display.getFrame().setFocusTraversalKeysEnabled(false);
 		display.getCanvas().addMouseListener(mm);
 		display.getCanvas().addMouseMotionListener(mm);
-		
-		input.setKeyboardKey(Key.DOWN);
 
 		Thread thread = new Thread(this);
 		thread.start();

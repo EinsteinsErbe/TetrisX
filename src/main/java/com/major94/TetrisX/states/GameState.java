@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import com.major94.TetrisX.game.Game;
 import com.major94.TetrisX.input.Input;
+import com.major94.TetrisX.input.Key;
 import com.major94.TetrisX.input.MouseManager;
 import com.major94.TetrisX.other.Tools;
 import com.major94.TetrisX.sound.Sound;
@@ -20,8 +21,6 @@ import com.major94.TetrisX.sound.Sound;
 public class GameState extends State{
 
 	boolean started;	//Spiel läuft
-	boolean canStart; 	//Enter losgelassen
-	boolean ready;		//ESC losgelassen
 
 	Point randPos;
 	double itemProb;
@@ -41,7 +40,7 @@ public class GameState extends State{
 
 		width = 30;
 		height = 20;
-		
+
 		pWidth = 32*width;
 		pHeight = 32*height;
 
@@ -56,33 +55,18 @@ public class GameState extends State{
 		levelStr = levelName+level+"-"+(worldNo+1);
 
 		started = false;
-		canStart = false;
-		ready = false;
 	}
 
 	@Override
 	public void tick(Input input, MouseManager mm) {
-/*
-		if(km.isPressed(KeyEvent.VK_ENTER)){
-			if(canStart){
-				started = true;
-				Sound.play("hawkee");
-			}
-		}
-		else{
-			canStart = true;
+
+		if(input.isClicked(Key.ENTER)){
+			Sound.play("hawkee");
 		}
 
-		if(km.isPressed(KeyEvent.VK_P)){
-			if(ready){
-				ready = false;
-				setStatus(game.pauseState);
-			}
+		if(input.isClicked(Key.PAUSE)){
+			setStatus(game.pauseState);
 		}
-		else {
-			ready = true;
-		}
-		*/
 	}
 
 	@Override

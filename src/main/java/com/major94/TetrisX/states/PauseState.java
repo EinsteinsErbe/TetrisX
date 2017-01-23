@@ -7,11 +7,14 @@ import java.awt.event.KeyEvent;
 
 import com.major94.TetrisX.game.Game;
 import com.major94.TetrisX.input.Input;
+import com.major94.TetrisX.input.Key;
 import com.major94.TetrisX.input.Menu;
 import com.major94.TetrisX.input.MouseManager;
 import com.major94.TetrisX.other.Tools;
 
 public class PauseState extends State{
+	
+	Menu menu;
 
 	boolean ready;
 	Font font;
@@ -28,31 +31,24 @@ public class PauseState extends State{
 
 	@Override
 	public void tick(Input input, MouseManager mm) {
-		/*
-		if(km.isPressed(KeyEvent.VK_P)){
-			if(ready){
+		
+		if(input.isClicked(Key.PAUSE)){
 				ready = false;
 				setStatus(game.gameState);
-			}
-		}
-		else {
-			ready = true;
 		}
 
-		menu.tick(km, mm);
+		menu.tick(input, mm);
 
 		if(menu.buttonPressed("RETURN")){
-			ready = false;
 			setStatus(game.gameState);
 		}
 		if(menu.buttonPressed("OPTIONS")){
-			ready = false;
 			setStatus(game.optionsState);
 		}
 		if(menu.buttonPressed("EXIT")){
 			System.exit(0);
 		}
-		*/
+		
 	}
 
 	@Override

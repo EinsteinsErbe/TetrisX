@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 
-public class Menu {
+public class KeyConfigMenu {
 
 	private final static int DEF_WIDTH = 300;
 	private final static int DEF_HEIGHT = 100;
@@ -19,12 +19,12 @@ public class Menu {
 
 	private int forcedButton;
 
-	public Menu(int xMiddle, int yTop, String[] labels){
+	public KeyConfigMenu(int xMiddle, int yTop, String[] labels){
 
 		this(xMiddle, yTop, labels, DEF_WIDTH, DEF_HEIGHT);
 	}
 
-	public Menu(int xMiddle, int yTop, String[] labels, int width, int height){
+	public KeyConfigMenu(int xMiddle, int yTop, Object[] labels, int width, int height){
 
 		this.width = width;
 		this.height = height;
@@ -37,7 +37,7 @@ public class Menu {
 		buttons = new Button[labels.length];
 
 		for(int i=0; i<buttons.length; i++){
-			buttons[i] = new Button(xMiddle-width/2, yTop+i*(height+10), width, height, labels[i], (int) (height*0.5));
+			buttons[i] = new Button(xMiddle-width/2, yTop+i*(height+10), width, height, labels[i].toString(), (int) (height*0.5));
 		}
 	}
 

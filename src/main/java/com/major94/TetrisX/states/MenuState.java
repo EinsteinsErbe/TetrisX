@@ -8,6 +8,8 @@ import com.major94.TetrisX.input.Menu;
 import com.major94.TetrisX.input.MouseManager;
 
 public class MenuState extends State{
+	
+	Menu menu;
 
 	public MenuState(Game game){
 		super(game);

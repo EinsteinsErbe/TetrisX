@@ -7,11 +7,15 @@ import java.awt.Graphics;
 import com.major94.TetrisX.game.Game;
 import com.major94.TetrisX.input.Button;
 import com.major94.TetrisX.input.Input;
+import com.major94.TetrisX.input.Key;
+import com.major94.TetrisX.input.KeyConfigMenu;
 import com.major94.TetrisX.input.Menu;
 import com.major94.TetrisX.input.MouseManager;
 import com.major94.TetrisX.other.Tools;
 
 public class OptionsState extends State{
+	
+	KeyConfigMenu menu;
 	
 	String text = "";
 	String arrowText = "Arrow-Keys as Direction";
@@ -26,7 +30,7 @@ public class OptionsState extends State{
 		
 		font = new Font("Arial", 1, 30);
 		
-		menu = new Menu(pWidth/2,200,new String[]{"MENU","ARROWS","ASDW"}, 100, 50);
+		menu = new KeyConfigMenu(pWidth/2,200,Key.values(), 100, 30);
 		
 		text = arrowText;
 	}

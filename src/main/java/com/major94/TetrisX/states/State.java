@@ -29,8 +29,6 @@ public abstract class State {
 	
 	public static MouseManager mouseManager;
 	
-	Menu menu;
-	
 	private static State currentStatus = null;
 
 	public static int realFps = 0;

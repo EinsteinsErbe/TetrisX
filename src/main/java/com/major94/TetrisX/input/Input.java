@@ -13,7 +13,7 @@ public class Input implements StandardInput{
 	static JInputJoystick gamepad;
 	static JInputJoystick keyboard;
 
-
+	//TODO Keyboard is not always correctly recognized
 
 	public Input() {
 		init();
@@ -89,7 +89,6 @@ public class Input implements StandardInput{
 		Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
 		while(true){
 			for(int i=0; i < controllers.length; i++) {
-				//System.out.println(controllers[i].getName()+": "+controllers[i].getType());
 				controllers[i].poll();
 				Component[] components = controllers[i].getComponents();
 
