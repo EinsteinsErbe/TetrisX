@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.major94.TetrisX.game.Game;
+import com.major94.TetrisX.input.Input;
 import com.major94.TetrisX.input.MouseManager;
 import com.major94.TetrisX.other.Tools;
 import com.major94.TetrisX.sound.Sound;
@@ -60,7 +61,7 @@ public class GameState extends State{
 	}
 
 	@Override
-	public void tick(MouseManager mm) {
+	public void tick(Input input, MouseManager mm) {
 /*
 		if(km.isPressed(KeyEvent.VK_ENTER)){
 			if(canStart){

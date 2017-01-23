@@ -3,6 +3,7 @@ package com.major94.TetrisX.states;
 import java.awt.Graphics;
 
 import com.major94.TetrisX.game.Game;
+import com.major94.TetrisX.input.Input;
 import com.major94.TetrisX.input.Menu;
 import com.major94.TetrisX.input.MouseManager;
 
@@ -61,7 +62,7 @@ public abstract class State {
 		this.game = game; 
 		
 	}
-	public abstract void tick(MouseManager mm);
+	public abstract void tick(Input input, MouseManager mm);
 	
 	public abstract void render(Graphics g);
 

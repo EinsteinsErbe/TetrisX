@@ -3,6 +3,7 @@ package com.major94.TetrisX.states;
 import java.awt.Graphics;
 
 import com.major94.TetrisX.game.Game;
+import com.major94.TetrisX.input.Input;
 import com.major94.TetrisX.input.Menu;
 import com.major94.TetrisX.input.MouseManager;
 
@@ -15,9 +16,9 @@ public class MenuState extends State{
 	}
 
 	@Override
-	public void tick(MouseManager mm) {
+	public void tick(Input input, MouseManager mm) {
 
-		menu.tick(mm);
+		menu.tick(input, mm);
 
 		if(menu.buttonPressed("START")){
 			setStatus(game.gameState);

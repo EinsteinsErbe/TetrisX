@@ -92,6 +92,7 @@ public class JInputJoystick implements StandardInput {
 		Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
 
 		for(int i=controllers.length-1; i >=0  && controller == null; i--) {
+		//for(int i=0; i <controllers.length  && controller == null; i++) {
 			if(
 					controllers[i].getType() == controllerType_1 ||
 					controllers[i].getType() == controllerType_2
@@ -667,7 +668,6 @@ public class JInputJoystick implements StandardInput {
 		setKey(key, id, 1.0f);
 	}
 
-	//TODO add possibility for axis as buttons
 	public void setKey(Key key, Identifier id, float value){
 		keyMap[key.ordinal()] = id;
 		keyValues[key.ordinal()] = value;

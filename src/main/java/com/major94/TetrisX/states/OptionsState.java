@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import com.major94.TetrisX.game.Game;
 import com.major94.TetrisX.input.Button;
+import com.major94.TetrisX.input.Input;
 import com.major94.TetrisX.input.Menu;
 import com.major94.TetrisX.input.MouseManager;
 import com.major94.TetrisX.other.Tools;
@@ -25,15 +26,15 @@ public class OptionsState extends State{
 		
 		font = new Font("Arial", 1, 30);
 		
-		menu = new Menu(pWidth/2,200,new String[]{"MENU","ARROWS","ASDW"});
+		menu = new Menu(pWidth/2,200,new String[]{"MENU","ARROWS","ASDW"}, 100, 50);
 		
 		text = arrowText;
 	}
 
 	@Override
-	public void tick(MouseManager mm) {
+	public void tick(Input input, MouseManager mm) {
 		
-		menu.tick(mm);
+		menu.tick(input, mm);
 
 		if(menu.buttonPressed("MENU")){
 			setStatus(game.menuState);

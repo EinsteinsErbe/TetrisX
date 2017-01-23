@@ -59,8 +59,7 @@ public class Game implements Runnable {
 		display.getCanvas().addMouseListener(mm);
 		display.getCanvas().addMouseMotionListener(mm);
 		
-		//Test key setting
-		input.setGamePadKey(Key.UP);
+		input.setKeyboardKey(Key.DOWN);
 
 		Thread thread = new Thread(this);
 		thread.start();
@@ -113,7 +112,7 @@ public class Game implements Runnable {
 		}
 		*/
 		if(State.getStatus() != null){	//Wenn ein aktueller State vorhanden ist
-			//State.getStatus().tick(km, mm);	//aktueller State Tick ausführen
+			State.getStatus().tick(input, mm);	//aktueller State Tick ausführen
 		}
 	}
 }

@@ -20,7 +20,7 @@ public class Button {
 	
 	Font font, unpressedFont, pressedFont;
 
-	public Button(int x, int y, int width, int height, String label) {
+	public Button(int x, int y, int width, int height, String label, int fontSize) {
 		this.x = x;
 		this.y = y;
 		this.label = label;
@@ -33,8 +33,13 @@ public class Button {
 		clicked = false;
 		forced = false;
 		
-		unpressedFont = new Font("Arial", 1, 30);
-		pressedFont = new Font("Arial", 1, 28);
+		unpressedFont = new Font("Arial", 1, fontSize);
+		pressedFont = new Font("Arial", 1, (int) (fontSize*0.9));
+	}
+	
+	public Button(int x, int y, int width, int height, String label) {
+
+		this(x,y,width,height,label,30);
 	}
 
 	public void render(Graphics g) {
@@ -54,7 +59,7 @@ public class Button {
 		Tools.drawCenteredString(x, y, width, height, label, font, Color.DARK_GRAY, g);
 	}
 
-	public void tick(MouseManager mm) {
+	public void tick(Input input, MouseManager mm) {
 		clicked = false;
 		if(contains(mm.x, mm.y)){
 			forced = false;
